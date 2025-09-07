@@ -1,8 +1,10 @@
 // src/app/cart/cart.ts
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule, CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { CartService } from '../../shared/cart.service';
+import { AuthService } from '../../auth/auth.service';
+import { UserProfileService } from '../../shared/userProfile.service';
 
 
 type RegionRate = { id: string; label: string; rate: number };
@@ -15,6 +17,7 @@ type RegionRate = { id: string; label: string; rate: number };
   styleUrls: ['./cart.css']
 })
 export class CartComponent {
+  private profiles = inject(UserProfileService);
   cart = inject(CartService);
   router = inject(Router);
 
@@ -37,15 +40,41 @@ export class CartComponent {
   total   = computed(() => this.cart.total());
 
   constructor() {
-    // initialise le taux
-    this.cart.setTaxRate(this.taxRate());
+    // si le profil est chargé et contient une région, applique-la
+  effect(() => {
+    const p = this.profiles.profile();
+    if (!p?.prefs?.regionId) return;
+    const r = this.regions.find(x => x.id === p.prefs!.regionId);
+    if (!r) return;
+    this.region.set(r);
+    this.cart.setTaxRate(r.rate);
+  });
   }
 
   chooseRegion(id: string) {
     const r = this.regions.find(x => x.id === id) ?? this.regions[0];
     this.region.set(r);
     this.cart.setTaxRate(r.rate);
+     // ✅ Sauvegarde dans le profil si connecté
+     try { this.profiles.savePreferences({ regionId: r.id, taxRate: r.rate }); } catch {}
+    
   }
+  
+
+    // 👇 AJOUT
+    private auth = inject(AuthService);
+    user = this.auth.user; // signal<User|null>
+  
+    // Nom à afficher : displayName -> sinon email local-part -> sinon "cher parent"
+    greetName = computed(() => {
+      const u = this.user();
+      const raw =
+        (u?.displayName && u.displayName.trim()) ||
+        (u?.email ? u.email.split('@')[0] : '') ||
+        'cher parent';
+      // Première lettre en majuscule
+      return raw.charAt(0).toUpperCase() + raw.slice(1);
+    });
 
   inc(id: number) { this.cart.inc(id); }
   dec(id: number) { this.cart.dec(id); }

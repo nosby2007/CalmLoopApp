@@ -1,0 +1,57 @@
+<section class="container profile">
+    <h1>Mon profil</h1>
+  
+    <!-- ⬇️ entoure tes champs d’un form réactif -->
+    <form class="card" [formGroup]="form">
+      <h2>Informations</h2>
+      <div class="grid">
+        <label>Nom affiché
+          <input type="text" formControlName="displayName" placeholder="Votre nom" />
+        </label>
+        <label>Email
+          <input type="email" [value]="(profiles.profile()?.email || '')" disabled />
+        </label>
+      </div>
+    </form>
+  
+    <form class="card" [formGroup]="form">
+      <h2>Préférences d’achats</h2>
+  
+      <label>Région fiscale
+        <select formControlName="regionId">
+          <option *ngFor="let r of regions" [value]="r.id">{{ r.label }}</option>
+        </select>
+      </label>
+  
+      <div class="row">
+        <span>Taux appliqué</span>
+        <b>{{ (form.value.taxRate || 0) * 100 | number:'1.0-2' }}%</b>
+      </div>
+  
+      <div class="cats">
+        <div
+          class="cat"
+          *ngFor="let c of categories"
+          [class.active]="form.controls.favoriteCategories.value.includes(c.id)"
+          (click)="toggleCategory(c.id)"
+        >
+          {{ c.label }}
+        </div>
+      </div>
+      
+  
+      <label class="check">
+        <input type="checkbox" formControlName="newsletter" />
+        Recevoir des conseils et promos par email
+      </label>
+    </form>
+  
+    <div class="actions">
+      <button class="btn primary" (click)="save()" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement…' : 'Enregistrer mes préférences' }}
+      </button>
+      <span class="saved" *ngIf="saved()">Enregistré ✓</span>
+      <a routerLink="/panier" class="btn">Voir mon panier</a>
+    </div>
+  </section>
+  

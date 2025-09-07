@@ -1,0 +1,29 @@
+<section class="auth container">
+  <h1>Créer un compte</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <label>Nom
+      <input type="text" formControlName="name" placeholder="Votre nom" required />
+    </label>
+
+    <label>Email
+      <input type="email" formControlName="email" placeholder="vous@exemple.com" required />
+    </label>
+
+    <label>Mot de passe
+      <input type="password" formControlName="password" placeholder="••••••••" required />
+    </label>
+
+    <label>Confirmer le mot de passe
+      <input type="password" formControlName="confirm" placeholder="••••••••" required />
+    </label>
+
+    <button class="btn primary" [disabled]="loading() || form.invalid">
+      {{ loading() ? 'Création…' : 'Créer mon compte' }}
+    </button>
+  </form>
+
+  <p class="alt">Déjà inscrit ?
+    <a routerLink="/login">Se connecter</a>
+  </p>
+</section>

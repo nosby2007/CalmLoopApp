@@ -1,0 +1,27 @@
+<section class="auth container">
+  <h1>Se connecter</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <label>Email
+      <input type="email" formControlName="email" placeholder="vous@exemple.com" required />
+    </label>
+
+    <label>Mot de passe
+      <input type="password" formControlName="password" placeholder="••••••••" required />
+    </label>
+
+    <button class="btn primary" [disabled]="loading() || form.invalid">
+      {{ loading() ? 'Connexion…' : 'Se connecter' }}
+    </button>
+
+    <button type="button" class="btn" (click)="google()" [disabled]="loading()">
+      Continuer avec Google
+    </button>
+
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </form>
+
+  <p class="alt">Pas de compte ?
+    <a routerLink="/register">Créer un compte</a>
+  </p>
+</section>

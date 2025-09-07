@@ -85,4 +85,7 @@
     .line{ grid-area: line; text-align:right }
     .remove{ grid-area: remove; justify-self:end }
   }
+  .cart-head{ margin-bottom: 10px }
+.greeting{ color:#475569; margin:4px 0 0 }
+
   
