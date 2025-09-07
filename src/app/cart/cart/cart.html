@@ -1,0 +1,79 @@
+<section class="cart container">
+    <h1>Votre panier</h1>
+  
+    <!-- Panier vide -->
+    <div class="empty" *ngIf="count() === 0">
+      <p>Votre panier est vide pour le moment.</p>
+      <a class="btn btn--primary" routerLink="/boutique">Découvrir la boutique</a>
+    </div>
+  
+    <!-- Panier rempli -->
+    <div class="layout" *ngIf="count() > 0">
+      <div class="list">
+        <article class="row" *ngFor="let it of items()">
+          <img [src]="it.product.image" [alt]="it.product.name" />
+          <div class="info">
+            <div class="title">{{ it.product.name }}</div>
+            <div class="desc">{{ it.product.description }}</div>
+            <div class="price">{{ it.product.price | currency:'USD' }}</div>
+          </div>
+          <div class="qty">
+            <button (click)="dec(it.product.id)" aria-label="Diminuer">−</button>
+            <input type="number" [value]="it.qty" min="1" (change)="set(it.product.id, $any($event.target).value)" />
+            <button (click)="inc(it.product.id)" aria-label="Augmenter">+</button>
+          </div>
+          <div class="line">
+            {{ (it.product.price * it.qty) | currency:'USD' }}
+          </div>
+          <button class="remove" (click)="remove(it.product.id)" aria-label="Supprimer">✕</button>
+        </article>
+  
+        <div class="actions-under">
+          <button class="btn ghost" (click)="clear()">Vider le panier</button>
+          <a class="btn" routerLink="/boutique">Ajouter d'autres produits</a>
+        </div>
+      </div>
+  
+      <aside class="summary">
+        <!-- ... dans <aside class="summary"> -->
+<h2>Récapitulatif</h2>
+
+<!-- 👇 Sélecteur de zone fiscale -->
+<label class="field">
+  <span>Zone fiscale</span>
+  <select [value]="region().id" (change)="chooseRegion($any($event.target).value)">
+    <option *ngFor="let r of regions" [value]="r.id">
+      {{ r.label }}
+    </option>
+  </select>
+</label>
+
+<div class="lineitem">
+  <span>Sous-total</span>
+  <b>{{ subtotal() | currency:'USD' }}</b>
+</div>
+
+<!-- 👇 Ligne Taxes -->
+<div class="lineitem">
+  <span>Taxes ({{ (taxRate() * 100) | number:'1.0-2' }}%)</span>
+  <b>{{ tax() | currency:'USD' }}</b>
+</div>
+
+<hr />
+
+<div class="lineitem total">
+  <span>Total</span>
+  <b>{{ total() | currency:'USD' }}</b>
+</div>
+
+<button class="btn btn--pay" (click)="pay()">Payer maintenant</button>
+<!-- ... -->
+  
+        <div class="incite">
+          <p>🎁 Il vous manque des lingettes ou une crème douceur ?</p>
+          <a routerLink="/boutique" class="btn ghost">Ajouter des essentiels</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+  

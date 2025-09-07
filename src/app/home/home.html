@@ -102,34 +102,56 @@
     </div>
   </section>
   
-  <!-- BEST-SELLERS (local) -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section__header">
-        <h2>Best-sellers</h2>
-        <p>Les favoris des parents — validés au quotidien.</p>
-      </div>
-  
-      <div class="grid">
-        <div class="card" *ngFor="let p of products | slice:0:8">
-          <img [src]="p.image" [alt]="p.name" />
-          <div class="card__body">
-            <div class="title">{{ p.name }}</div>
-            <div class="desc">{{ p.description }}</div>
-            <div class="price">{{ p.price | currency:'USD' }}</div>
-            <div class="actions">
-              <button class="btn add" (click)="add(p)">Ajouter au panier</button>
-              <a class="btn ghost" routerLink="/boutique">Voir plus</a>
-            </div>
+  <!-- BEST-SELLERS (local + filtres catégories) -->
+  <!-- BEST-SELLERS (local + filtres catégories) -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__header">
+      <h2>Best-sellers</h2>
+      <p>Les favoris des parents — validés au quotidien.</p>
+    </div>
+
+    <!-- Barre de filtres -->
+    <div class="catfilter">
+      <button class="chip" [class.active]="selectedCat === 'all'" (click)="selectedCat = 'all'">
+        Tous
+      </button>
+      <button
+        class="chip"
+        *ngFor="let c of categories"
+        [class.active]="selectedCat === c.id"
+        (click)="selectedCat = c.id"
+      >
+        {{ c.label }}
+      </button>
+    </div>
+
+    <div class="grid">
+      <div class="card" *ngFor="let p of shown | slice:0:8">
+        <img [src]="p.image" [alt]="p.name" />
+        <div class="card__body">
+          <div class="title">{{ p.name }}</div>
+          <div class="desc">{{ p.description }}</div>
+          <div class="meta">
+            <span class="badge badge--cat">{{ labelOf(p.category) }}</span>
+            <span class="price">{{ p.price | currency:'USD' }}</span>
+          </div>
+          <div class="actions">
+            <button class="btn add" (click)="add(p)">Ajouter au panier</button>
+            <a class="btn ghost" routerLink="/boutique">Voir plus</a>
           </div>
         </div>
       </div>
-  
-      <div class="cta-center">
-        <a routerLink="/boutique" class="btn btn--primary">Parcourir toute la boutique</a>
-      </div>
     </div>
-  </section>
+
+    <div class="cta-center">
+      <a routerLink="/boutique" class="btn btn--primary">Parcourir toute la boutique</a>
+    </div>
+  </div>
+</section>
+
+
+
   
   <!-- BANNIÈRE INCITATIVE -->
   <section class="band">

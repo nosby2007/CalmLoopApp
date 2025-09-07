@@ -17,10 +17,17 @@ export const routes: Routes = [
     loadComponent: () => import('./shop/shop').then(m => m.ShopComponent),
     title: 'Boutique'
   },
+  
+  // 🧺 Panier
+  { path: 'panier',   loadComponent: () => import('./cart/cart/cart').then(m => m.CartComponent),       title: 'Votre panier' },
+
+  // 💳 Checkout (stub)
+  { path: 'checkout', loadComponent: () => import('./checkout/checkout/checkout').then(m => m.CheckoutComponent), title: 'Paiement' },
   {
     path: 'contact',
     loadComponent: () => import('./contact/contact').then(m => m.ContactComponent),
     title: 'Nous contacter'
   },
+  
   { path: '**', redirectTo: '' }
 ];

@@ -1,6 +1,5 @@
-
 {
   "projects": {
-    "default": "calmloop"
+    "default": "sample-firebase-ai-app-e8782"
   }
 }

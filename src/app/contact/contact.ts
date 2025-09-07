@@ -2,7 +2,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { addDoc, collection, Firestore, serverTimestamp } from 'firebase/firestore';
 
 @Component({
   standalone: true,
@@ -12,11 +11,7 @@ import { addDoc, collection, Firestore, serverTimestamp } from 'firebase/firesto
   styleUrls: ['./contact.css']
 })
 export class ContactComponent {
-  private fb = inject(FormBuilder);
-  private fs = inject(Firestore);
-
-  sent = signal(false);
-  error = signal<string | null>(null);
+  private fb = inject(FormBuilder); // ✅ disponible avant l’utilisation
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -24,21 +19,12 @@ export class ContactComponent {
     message: ['', Validators.required]
   });
 
-  async submit() {
-    this.error.set(null);
-    if (this.form.invalid) return;
+  sent = signal(false);
 
-    try {
-      const payload = {
-        ...this.form.value,
-        createdAt: serverTimestamp()
-      };
-      await addDoc(collection(this.fs, 'messages'), payload as any);
-      this.sent.set(true);
-      this.form.reset();
-    } catch (e: any) {
-      console.error(e);
-      this.error.set('Oups, impossible d’envoyer le message. Réessaie.');
-    }
+  submit() {
+    if (this.form.invalid) return;
+    console.log('Contact payload', this.form.value);
+    this.sent.set(true);
+    this.form.reset();
   }
 }

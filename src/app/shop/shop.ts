@@ -1,51 +1,60 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule, CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CartService } from '../shared/cart.service';
-import { PRODUCTS, type Product } from '../shared/products';
+import { Product, PRODUCTS, CATEGORIES, Category } from '../shared/products';
+
 
 @Component({
   standalone: true,
   selector: 'app-shop',
-  imports: [CommonModule, CurrencyPipe],
-  styles: [`
-    .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
-    .card { border:1px solid #e5e7eb; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; background:#fff; }
-    .card img { width:100%; height:180px; object-fit:cover; }
-    .card .body { padding:12px; display:flex; flex-direction:column; gap:8px; flex:1; }
-    .title { font-weight:600; }
-    .price { color:#16a34a; font-weight:700; }
-    .actions { display:flex; gap:8px; }
-    .btn { cursor:pointer; border:none; border-radius:10px; padding:8px 10px; font-weight:600; }
-    .btn.add { background:#0ea5e9; color:#fff; }
-    .panel { margin:24px 0; padding:12px; background:#f1f5f9; border-radius:12px; }
-    @media (max-width: 1024px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } }
-  `],
-  template: `
-    <h2>La boutique</h2>
-
-    <div class="panel" *ngIf="cart.items().length">
-      <b>Panier:</b> {{cart.items().length}} article(s) — Total: {{ cart.total() | currency:'USD' }}
-      <button class="btn" (click)="cart.clear()">Vider</button>
-    </div>
-
-    <div class="grid">
-      <div class="card" *ngFor="let p of products">
-        <img [src]="p.image" [alt]="p.name">
-        <div class="body">
-          <div class="title">{{ p.name }}</div>
-          <div class="desc">{{ p.description }}</div>
-          <div class="price">{{ p.price | currency:'USD' }}</div>
-          <div class="actions">
-            <button class="btn add" (click)="add(p)">Ajouter</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `
+  imports: [CommonModule, CurrencyPipe, NgFor, NgIf],
+  templateUrl: './shop.html',
+  styleUrls: ['./shop.css']
 })
-export class ShopComponent {
-  cart = inject(CartService);
+export class ShopComponent implements OnInit {
+  private cart = inject(CartService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
   products: Product[] = PRODUCTS;
+  categories = CATEGORIES;
+  selectedCat: 'all' | Category = 'all';
+
+  ngOnInit() {
+    // Lis la catégorie depuis l'URL ?cat=soins (pratique à partager)
+    this.route.queryParamMap.subscribe((params) => {
+      const cat = params.get('cat') as Category | null;
+      this.selectedCat = cat && this.categories.some(c => c.id === cat) ? cat : 'all';
+    });
+  }
+
+  setCat(cat: 'all' | Category) {
+    this.selectedCat = cat;
+    // Mets à jour l'URL (sans recharger la page)
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { cat: cat === 'all' ? null : cat },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  labelOf(id: Category): string {
+    return this.categories.find(c => c.id === id)?.label ?? id;
+  }
+
+  get counts(): Record<'all' | Category, number> {
+    const acc: Record<any, number> = { all: this.products.length };
+    for (const c of this.categories) acc[c.id] = 0;
+    for (const p of this.products) acc[p.category] = (acc[p.category] || 0) + 1;
+    return acc as Record<'all' | Category, number>;
+  }
+
+  get shown(): Product[] {
+    return this.selectedCat === 'all'
+      ? this.products
+      : this.products.filter(p => p.category === this.selectedCat);
+  }
+
   add(p: Product) { this.cart.add(p); }
 }

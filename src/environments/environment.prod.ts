@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   firebase: {
     projectId: "calmloop",
     appId: "1:988412283883:web:daa6db7e3385641bde67ae",

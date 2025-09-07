@@ -3,13 +3,8 @@ import { Component, inject } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../shared/cart.service';
-import { Product, PRODUCTS } from '../shared/products';
+import { Product, PRODUCTS, CATEGORIES, Category } from '../shared/products';
 
-// 👉 Choisis l'import qui correspond à TON fichier :
-// - si ton fichier est src/app/shared/product.ts (singulier) :
-
-// - sinon, si c'est src/app/shared/products.ts (pluriel), utilise ceci à la place :
-// import { PRODUCTS, type Product } from '../shared/products';
 
 @Component({
   standalone: true,
@@ -21,8 +16,19 @@ import { Product, PRODUCTS } from '../shared/products';
 export class HomeComponent {
   private cart = inject(CartService);
 
-  // 🔁 On lit la liste locale (pas d’Observable)
   products: Product[] = PRODUCTS;
+  categories = CATEGORIES;
+  selectedCat: 'all' | Category = 'all';
+
+  get shown(): Product[] {
+    return this.selectedCat === 'all'
+      ? this.products
+      : this.products.filter(p => p.category === this.selectedCat);
+  }
+
+  labelOf(id: Category): string {
+    return this.categories.find(c => c.id === id)?.label ?? id;
+  }
 
   add(p: Product) {
     this.cart.add(p);

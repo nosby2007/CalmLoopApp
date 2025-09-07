@@ -1,1 +1,51 @@
-<p>shop works!</p>
+<section class="shop container">
+    <!-- Sidebar catégories -->
+    <aside class="sidebar">
+      <h3>Catégories</h3>
+      <nav class="cats">
+        <button class="cat-btn" [class.active]="selectedCat === 'all'" (click)="setCat('all')">
+          <span>Toutes</span>
+          <span class="count">{{ counts.all }}</span>
+        </button>
+        <button
+          class="cat-btn"
+          *ngFor="let c of categories"
+          [class.active]="selectedCat === c.id"
+          (click)="setCat(c.id)"
+        >
+          <span>{{ c.label }}</span>
+          <span class="count">{{ counts[c.id] }}</span>
+        </button>
+      </nav>
+    </aside>
+  
+    <!-- Contenu principal -->
+    <main class="content">
+      <header class="header">
+        <h2>
+          {{ selectedCat === 'all' ? 'Tous les produits' : ('Catégorie : ' + labelOf(selectedCat)) }}
+        </h2>
+        <div class="muted">{{ shown.length }} article(s)</div>
+      </header>
+  
+      <div class="grid">
+        <div class="card" *ngFor="let p of shown">
+          <img [src]="p.image" [alt]="p.name" />
+          <div class="card__body">
+            <div class="title">{{ p.name }}</div>
+            <div class="desc">{{ p.description }}</div>
+  
+            <div class="meta">
+              <span class="badge badge--cat" *ngIf="selectedCat === 'all'">{{ labelOf(p.category) }}</span>
+              <span class="price">{{ p.price | currency:'USD' }}</span>
+            </div>
+  
+            <div class="actions">
+              <button class="btn add" (click)="add(p)">Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+  
