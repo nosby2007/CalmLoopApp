@@ -38,7 +38,7 @@ export const PRODUCTS: Product[] = [
     id: 3,
     name: 'Tire-lait confort',
     price: 59.00,
-    image: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/dtdpx59sc/image/upload/v1757347060/IMG_2970_btccav.jpg',
     description: 'Silencieux et ergonomique pour l’allaitement.',
     category: 'allaitement'
   },
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     id: 5,
     name: 'Thermomètre douceur',
     price: 18.00,
-    image: 'https://picsum.photos/seed/thermo/1000/700',
+    image: 'https://res.cloudinary.com/dtdpx59sc/image/upload/v1757347214/c2577111-eda2-40f8-8ea3-8eed79455e86_fr33f1.jpg',
     description: 'Lecture rapide, embout souple.',
     category: 'puericulture'
   },

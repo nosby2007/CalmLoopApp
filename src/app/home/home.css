@@ -187,3 +187,131 @@ p{ margin:0 0 12px; color:var(--muted) }
   font-weight: 700;
 }
 .price{ color:#16a34a; font-weight:800 }
+
+/* ===== CAROUSEL ===== */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 420px;
+  background: #000;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.carousel__track {
+  display: flex;
+  transition: transform 0.6s ease;
+  height: 100%;
+}
+
+.carousel__slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  color: #fff;
+}
+
+.carousel__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65);
+}
+
+.carousel__caption {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  max-width: 480px;
+}
+
+.carousel__caption h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.carousel__caption p {
+  margin-bottom: 12px;
+  color: #f1f5f9;
+}
+
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+/* ===== NOUVEAUTÉS (rail horizontal) ===== */
+.newreleases { padding: 14px 0 8px; background: linear-gradient(180deg,#fff,#fff7f4 60%,#f3e8ff) }
+.newreleases__head{
+  display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;
+}
+.newreleases__head h2{ margin:0; font-size:1.25rem }
+.newreleases .actions{ display:flex; align-items:center; gap:8px }
+.newreleases .seeall{ text-decoration:none; font-weight:800; color:#0f172a; padding:6px 10px; border-radius:999px; }
+.newreleases .seeall:hover{ background:#f1f5f9 }
+
+/* Rail scrollable */
+.rail{
+  display:flex; gap:12px; overflow-x:auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; padding-bottom:8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar{ display:none }
+
+/* Carte produit */
+.pcard{
+  flex: 0 0 260px; scroll-snap-align: start;
+  background:#fff; border:1px solid rgba(31,41,55,.08); border-radius:16px; overflow:hidden;
+  box-shadow: 0 10px 24px rgba(31,41,55,.08);
+}
+.pcard img{ width:100%; height:160px; object-fit:cover }
+.pcard__body{ padding:10px }
+.pcard .title{ font-weight:800; margin-bottom:4px }
+.pcard .desc{ color:#475569; font-size:.92rem; min-height: 2.4em }
+.pcard .foot{ display:grid; grid-template-columns: 1fr auto; align-items:center; gap:8px; margin-top:8px }
+.price{ color:#16a34a; font-weight:800 }
+
+.btn{
+  display:inline-block; padding:8px 10px; border-radius:10px; font-weight:800; text-decoration:none; cursor:pointer;
+  border:1px solid rgba(31,41,55,.12); background:#0f172a; color:#fff;
+}
+.btn.ghost{ background:#fff; color:#0f172a }
+.btn.add{ white-space:nowrap }
+
+/* Flèches (desktop) */
+.hbtn{
+  display:inline-grid; place-items:center; width:34px; height:34px; border-radius:999px; border:1px solid rgba(31,41,55,.15);
+  background:#fff; cursor:pointer; font-size:18px; line-height:0; color:#0f172a;
+}
+.hbtn:hover{ background:#f8fafc }
+
+/* Responsive */
+@media (max-width: 680px){
+  .pcard{ flex-basis: 72%; }   /* cartes plus larges sur mobile */
+  .pcard img{ height: 140px }
+}
+
+
+.carousel__btn:hover {
+  background: rgba(0,0,0,0.65);
+}
+
+.carousel__btn.prev { left: 12px; }
+.carousel__btn.next { right: 12px; }
+
+@media (max-width: 768px) {
+  .carousel { height: 280px; }
+  .carousel__caption h2 { font-size: 1.4rem; }
+}
+

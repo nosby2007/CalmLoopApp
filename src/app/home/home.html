@@ -7,7 +7,21 @@
       <a routerLink="/boutique" class="promo__btn">J’en profite</a>
     </div>
   </div>
-  
+    <!-- CARROUSEL NEW RELEASES -->
+<section class="carousel">
+  <div class="carousel__track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+    <div class="carousel__slide" *ngFor="let p of newReleases">
+      <img [src]="p.image" [alt]="p.name" />
+      <div class="carousel__caption">
+        <h2>{{ p.name }}</h2>
+        <p>{{ p.description }}</p>
+        <a [routerLink]="['/boutique']" [queryParams]="{ id: p.id }" class="btn">Découvrir</a>
+      </div>
+    </div>
+  </div>
+  <button class="carousel__btn prev" (click)="prev1()">‹</button>
+  <button class="carousel__btn next" (click)="next1()">›</button>
+</section>
   <!-- HERO -->
   <section class="hero">
     <div class="container hero__grid">
@@ -38,6 +52,37 @@
       </picture>
     </div>
   </section>
+<!-- SECTION NOUVEAUTÉS (scroll horizontal) -->
+<section class="newreleases">
+  <div class="newreleases__head">
+    <h2>Nouveautés</h2>
+    <div class="actions">
+      <button class="hbtn" (click)="prev()" aria-label="Précédent">‹</button>
+      <button class="hbtn" (click)="next()" aria-label="Suivant">›</button>
+      <a routerLink="/boutique" class="seeall">Voir tout</a>
+    </div>
+  </div>
+
+  <div #rail class="rail" role="list" aria-label="Nouveaux produits">
+    <article class="pcard" *ngFor="let p of newReleases" role="listitem">
+      <img [src]="p.image" [alt]="p.name" loading="lazy" />
+      <div class="pcard__body">
+        <div class="title">{{ p.name }}</div>
+        <div class="desc">{{ p.description }}</div>
+        <div class="foot">
+          <div class="price">{{ p.price | currency:'USD' }}</div>
+          <div class="cta">
+            <button class="btn add" (click)="add(p)">Ajouter</button>
+            <a class="btn ghost" [routerLink]="['/boutique']" [queryParams]="{ id: p.id }">Voir</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+
   
   <!-- TRUST BAR -->
   <section class="trust">

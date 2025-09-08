@@ -10,16 +10,16 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 // ⚙️ Ton fichier d’environnement
 import { environment } from '../environments/environment'; // ajuste le chemin si besoin
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-
-    // 👇 IMPORTANT : initialise l’app Firebase
     provideFirebaseApp(() => initializeApp(environment.firebase)),
 
     // Auth & Firestore
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideHttpClient(), 
   ],
 };
