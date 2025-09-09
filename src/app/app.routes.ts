@@ -1,6 +1,8 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { authGuard } from './auth/auth-guard';
+import { Admin } from './Admin/admin/admin';
+
 
 export const routes: Routes = [
   {
@@ -43,6 +45,7 @@ export const routes: Routes = [
     loadComponent: () => import('./profile/profile/profile').then(m => m.ProfileComponent),
     title: 'Mon profil'
   },
+  { path: 'admin', loadComponent: () => import('./Admin/admin/admin').then(m => m.Admin), title: 'Admin' },
   
   { path: '**', redirectTo: '' }
 ];

@@ -1,15 +1,23 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
+
 import { CartService } from './shared/cart.service';
 import { AuthService } from './auth/auth.service';
 import { effect } from '@angular/core';
 import { UserProfileService } from './shared/userProfile.service';
 import { filter } from 'rxjs/operators';
 import { ImageSearchService } from './shared/imag-search.service';
-import { NgIf, NgFor } from '@angular/common'; // si tu utilises explicitement
+ // si tu utilises explicitement
 // autres imports...
 import { type SearchResponse, type SearchHit } from './shared/imag-search.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ProductsService } from './shared/products.service';
+import { Product } from './shared/products';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet, Router, NavigationEnd } from '@angular/router';
+
+
+
 
 
 
@@ -234,6 +242,11 @@ export class AppComponent {
   private router = inject(Router);
   private imgSearch = inject(ImageSearchService);           // ✅ corrige "imgSearch does not exist"
   results = signal<SearchHit[] | null>(null);    
+  private products = inject(ProductsService);
+
+  // selectedCatId: signal<Category | undefined> ... (selon ton implémentation)
+  // Liste complète par cat
+  
 
   public logout(): void {
     this.authService.logout();

@@ -26,8 +26,8 @@ export class HomeComponent {
       image: 'https://res.cloudinary.com/dtdpx59sc/image/upload/v1757347058/IMG_2968_gpodaw.jpg', category: 'soins-bebe' } as any,
     { id: 103, name: 'Thermomètre digital', description: 'Rapide et confortable.', price: 14.9,
       image: 'https://res.cloudinary.com/dtdpx59sc/image/upload/v1757347214/c2577111-eda2-40f8-8ea3-8eed79455e86_fr33f1.jpg', category: 'puericulture' } as any,
-    { id: 104, name: 'Langes en coton', description: 'Lot 3 – respirants.', price: 12.0,
-      image: 'https://res.cloudinary.com/dtdpx59sc/image/upload/v1757347581/IMG_27DB6115-FE68-4BBA-B777-86A089B2E0A9_qw8zpd.jpg', category: 'textile' } as any,
+    { id: 104, name: 'Tissus en coton', description: 'Lot 3 – respirants.', price: 12.0,
+      image: 'https://res.cloudinary.com/dtdpx59sc/image/upload/v1757380613/Screenshot_2025-09-08_211631_tq7utd.png', category: 'textile' } as any,
   ];
   private cart = inject(CartService);
 
@@ -84,5 +84,3 @@ export class HomeComponent {
   }
 
 }
-
-

@@ -1,243 +1,242 @@
 <!-- BARRE PROMO -->
 <div class="promo">
-    <div class="container promo__wrap">
-      <span>🎁 -10% avec le code <b>BABYLOVE</b> —</span>
-      <span>🚚 Livraison offerte dès <b>$49</b> —</span>
-      <span>⚡ 48h en moyenne</span>
-      <a routerLink="/boutique" class="promo__btn">J’en profite</a>
-    </div>
+  <div class="container promo__wrap">
+    <span>🎁 -10% avec le code <b>BABYLOVE</b> —</span>
+    <span>🚚 Livraison offerte dès <b>$49</b> —</span>
+    <span>⚡ 48h en moyenne</span>
+    <a routerLink="/boutique" class="promo__btn">J’en profite</a>
   </div>
-    <!-- CARROUSEL NEW RELEASES -->
+</div>
+  <!-- CARROUSEL NEW RELEASES -->
 <section class="carousel">
-  <div class="carousel__track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-    <div class="carousel__slide" *ngFor="let p of newReleases">
-      <img [src]="p.image" [alt]="p.name" />
-      <div class="carousel__caption">
-        <h2>{{ p.name }}</h2>
-        <p>{{ p.description }}</p>
-        <a [routerLink]="['/boutique']" [queryParams]="{ id: p.id }" class="btn">Découvrir</a>
-      </div>
+<div class="carousel__track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+  <div class="carousel__slide" *ngFor="let p of newReleases">
+    <img [src]="p.image" [alt]="p.name" />
+    <div class="carousel__caption">
+      <h2>{{ p.name }}</h2>
+      <p>{{ p.description }}</p>
+      <a [routerLink]="['/boutique']" [queryParams]="{ id: p.id }" class="btn">Découvrir</a>
     </div>
   </div>
-  <button class="carousel__btn prev" (click)="prev1()">‹</button>
-  <button class="carousel__btn next" (click)="next1()">›</button>
+</div>
+<button class="carousel__btn prev" (click)="prev1()">‹</button>
+<button class="carousel__btn next" (click)="next1()">›</button>
 </section>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero__grid">
-      <div class="hero__text">
-        <h1>Tout doux pour <span>bébé</span> & <span>jeune maman</span></h1>
-        <p>
-          Des essentiels sélectionnés avec soin, sûrs et confortables — validés par des parents
-          et soignants. Commandez en quelques clics, on s’occupe du reste.
-        </p>
-        <div class="hero__cta">
-          <a routerLink="/boutique" class="btn btn--primary">Voir les best-sellers</a>
-          <a routerLink="/apropos" class="btn btn--ghost">Notre engagement</a>
-        </div>
-        <div class="hero__badges">
-          <span class="badge">Hypoallergénique</span>
-          <span class="badge">Sans parfum</span>
-          <span class="badge">Testé pédiatrique</span>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1>Tout doux pour <span>bébé</span> & <span>jeune maman</span></h1>
+      <p>
+        Des essentiels sélectionnés avec soin, sûrs et confortables — validés par des parents
+        et soignants. Commandez en quelques clics, on s’occupe du reste.
+      </p>
+      <div class="hero__cta">
+        <a routerLink="/boutique" class="btn btn--primary">Voir les best-sellers</a>
+        <a routerLink="/apropos" class="btn btn--ghost">Notre engagement</a>
       </div>
-  
-      <picture class="hero__image">
-        <img
-          src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop"
-          alt="Maman et bébé dans un univers doux"
-          loading="lazy"
-        />
-        <div class="shine"></div>
-      </picture>
+      <div class="hero__badges">
+        <span class="badge">Hypoallergénique</span>
+        <span class="badge">Sans parfum</span>
+        <span class="badge">Testé pédiatrique</span>
+      </div>
     </div>
-  </section>
+
+    <picture class="hero__image">
+      <img
+        src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1757380506/mois-d-or-maman-bebe-naissance_ufxpx7.jpg"
+        alt="Maman et bébé dans un univers doux"
+        loading="lazy"
+      />
+      <div class="shine"></div>
+    </picture>
+  </div>
+</section>
 <!-- SECTION NOUVEAUTÉS (scroll horizontal) -->
 <section class="newreleases">
-  <div class="newreleases__head">
-    <h2>Nouveautés</h2>
-    <div class="actions">
-      <button class="hbtn" (click)="prev()" aria-label="Précédent">‹</button>
-      <button class="hbtn" (click)="next()" aria-label="Suivant">›</button>
-      <a routerLink="/boutique" class="seeall">Voir tout</a>
+<div class="newreleases__head">
+  <h2>Nouveautés</h2>
+  <div class="actions">
+    <button class="hbtn" (click)="prev()" aria-label="Précédent">‹</button>
+    <button class="hbtn" (click)="next()" aria-label="Suivant">›</button>
+    <a routerLink="/boutique" class="seeall">Voir tout</a>
+  </div>
+</div>
+
+<div #rail class="rail" role="list" aria-label="Nouveaux produits">
+  <article class="pcard" *ngFor="let p of newReleases" role="listitem">
+    <img [src]="p.image" [alt]="p.name" loading="lazy" />
+    <div class="pcard__body">
+      <div class="title">{{ p.name }}</div>
+      <div class="desc">{{ p.description }}</div>
+      <div class="foot">
+        <div class="price">{{ p.price | currency:'USD' }}</div>
+        <div class="cta">
+          <button class="btn add" (click)="add(p)">Ajouter</button>
+          <a class="btn ghost" [routerLink]="['/boutique']" [queryParams]="{ id: p.id }">Voir</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+</section>
+
+
+
+
+<!-- TRUST BAR -->
+<section class="trust">
+  <div class="container trust__grid">
+    <div class="trust__item">
+      <div class="icon">🔒</div>
+      <div>
+        <b>Paiement sécurisé</b>
+        <div class="muted">Visa • MasterCard • PayPal</div>
+      </div>
+    </div>
+    <div class="trust__item">
+      <div class="icon">↩️</div>
+      <div>
+        <b>Retour 30 jours</b>
+        <div class="muted">Simple et rapide</div>
+      </div>
+    </div>
+    <div class="trust__item">
+      <div class="icon">⚡</div>
+      <div>
+        <b>Expédition 24–48h</b>
+        <div class="muted">Suivi en ligne</div>
+      </div>
+    </div>
+    <div class="trust__item">
+      <div class="icon">💬</div>
+      <div>
+        <b>Support bienveillant</b>
+        <div class="muted">Des conseils qui rassurent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÉGORIES -->
+<section class="section">
+  <div class="container">
+    <div class="section__header">
+      <h2>Nos catégories phares</h2>
+      <p>Des essentiels utiles au quotidien — simples, doux, efficaces.</p>
+    </div>
+
+    <div class="categories">
+      <a routerLink="/boutique" class="cat">
+        <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731465596/website%20assets/moisturese_cream_related_product_ffyt9k.jpg" />
+        <div class="cat__label">Soins Bébé</div>
+      </a>
+      <a routerLink="/boutique" class="cat">
+        <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731650627/website%20assets/infirmiere_avec_tablette_tcgkvv.jpg" alt="Allaitement" />
+        <div class="cat__label">Allaitement Conseils</div>
+      </a>
+      <a routerLink="/boutique" class="cat">
+        <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731650628/website%20assets/la_peau_gmws9c.jpg" />
+        <div class="cat__label">Puériculture</div>
+      </a>
+      <a routerLink="/boutique" class="cat">
+        <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731465596/website%20assets/old_and_new_TAP_kpreay.jpg" alt="Textile doux" />
+        <div class="cat__label">Textile tout doux</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BEST-SELLERS (local + filtres catégories) -->
+<!-- BEST-SELLERS (local + filtres catégories) -->
+<section class="section section--alt">
+<div class="container">
+  <div class="section__header">
+    <h2>Best-sellers</h2>
+    <p>Les favoris des parents — validés au quotidien.</p>
+  </div>
+
+  <!-- Barre de filtres -->
+  <div class="catfilter">
+    <button class="chip" [class.active]="selectedCat === 'all'" (click)="selectedCat = 'all'">
+      Tous
+    </button>
+    <button
+      class="chip"
+      *ngFor="let c of categories"
+      [class.active]="selectedCat === c.id"
+      (click)="selectedCat = c.id"
+    >
+      {{ c.label }}
+    </button>
+  </div>
+
+  <div class="grid">
+    <div class="card" *ngFor="let p of shown | slice:0:8">
+      <img [src]="p.image" [alt]="p.name" />
+      <div class="card__body">
+        <div class="title">{{ p.name }}</div>
+        <div class="desc">{{ p.description }}</div>
+        <div class="meta">
+          <span class="badge badge--cat">{{ labelOf(p.category) }}</span>
+          <span class="price">{{ p.price | currency:'USD' }}</span>
+        </div>
+        <div class="actions">
+          <button class="btn add" (click)="add(p)">Ajouter au panier</button>
+          <a class="btn ghost" routerLink="/boutique">Voir plus</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div #rail class="rail" role="list" aria-label="Nouveaux produits">
-    <article class="pcard" *ngFor="let p of newReleases" role="listitem">
-      <img [src]="p.image" [alt]="p.name" loading="lazy" />
-      <div class="pcard__body">
-        <div class="title">{{ p.name }}</div>
-        <div class="desc">{{ p.description }}</div>
-        <div class="foot">
-          <div class="price">{{ p.price | currency:'USD' }}</div>
-          <div class="cta">
-            <button class="btn add" (click)="add(p)">Ajouter</button>
-            <a class="btn ghost" [routerLink]="['/boutique']" [queryParams]="{ id: p.id }">Voir</a>
-          </div>
-        </div>
-      </div>
+  <div class="cta-center">
+    <a routerLink="/boutique" class="btn btn--primary">Parcourir toute la boutique</a>
+  </div>
+</div>
+</section>
+
+
+
+
+<!-- BANNIÈRE INCITATIVE -->
+<section class="band">
+  <div class="container band__wrap">
+    <div>
+      <h3>Pack Naissance — Prêt pour le 1er mois</h3>
+      <p>Liniment + Crème hydratante + Coton & lingettes + Thermomètre doux. -12% en pack.</p>
+    </div>
+    <a routerLink="/boutique" class="btn btn--dark">Je prends le pack</a>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="section">
+  <div class="container testimonials">
+    <article class="q">
+      “Des produits tout doux et une équipe rassurante. Livraison rapide 🥰”
+      <footer>— Naomi, maman de Léa</footer>
+    </article>
+    <article class="q">
+      “J’ai adoré le pack naissance, ça m’a simplifié la vie.”
+      <footer>— Chloé, future maman</footer>
+    </article>
+    <article class="q">
+      “Site clair, conseils utiles, je recommande à 100%.”
+      <footer>— Sarah, maman de jumeaux</footer>
     </article>
   </div>
 </section>
 
-
-
-  
-  <!-- TRUST BAR -->
-  <section class="trust">
-    <div class="container trust__grid">
-      <div class="trust__item">
-        <div class="icon">🔒</div>
-        <div>
-          <b>Paiement sécurisé</b>
-          <div class="muted">Visa • MasterCard • PayPal</div>
-        </div>
-      </div>
-      <div class="trust__item">
-        <div class="icon">↩️</div>
-        <div>
-          <b>Retour 30 jours</b>
-          <div class="muted">Simple et rapide</div>
-        </div>
-      </div>
-      <div class="trust__item">
-        <div class="icon">⚡</div>
-        <div>
-          <b>Expédition 24–48h</b>
-          <div class="muted">Suivi en ligne</div>
-        </div>
-      </div>
-      <div class="trust__item">
-        <div class="icon">💬</div>
-        <div>
-          <b>Support bienveillant</b>
-          <div class="muted">Des conseils qui rassurent</div>
-        </div>
-      </div>
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container newsletter__box">
+    <div>
+      <h3>Des conseils doux dans votre boîte mail</h3>
+      <p>Inscrivez-vous pour recevoir des remises et des guides bienveillants.</p>
     </div>
-  </section>
-  
-  <!-- CATÉGORIES -->
-  <section class="section">
-    <div class="container">
-      <div class="section__header">
-        <h2>Nos catégories phares</h2>
-        <p>Des essentiels utiles au quotidien — simples, doux, efficaces.</p>
-      </div>
-  
-      <div class="categories">
-        <a routerLink="/boutique" class="cat">
-          <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731465596/website%20assets/moisturese_cream_related_product_ffyt9k.jpg" />
-          <div class="cat__label">Soins Bébé</div>
-        </a>
-        <a routerLink="/boutique" class="cat">
-          <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731650627/website%20assets/infirmiere_avec_tablette_tcgkvv.jpg" alt="Allaitement" />
-          <div class="cat__label">Allaitement Conseils</div>
-        </a>
-        <a routerLink="/boutique" class="cat">
-          <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731650628/website%20assets/la_peau_gmws9c.jpg" />
-          <div class="cat__label">Puériculture</div>
-        </a>
-        <a routerLink="/boutique" class="cat">
-          <img src="https://res.cloudinary.com/dtdpx59sc/image/upload/v1731465596/website%20assets/old_and_new_TAP_kpreay.jpg" alt="Textile doux" />
-          <div class="cat__label">Textile tout doux</div>
-        </a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- BEST-SELLERS (local + filtres catégories) -->
-  <!-- BEST-SELLERS (local + filtres catégories) -->
-<section class="section section--alt">
-  <div class="container">
-    <div class="section__header">
-      <h2>Best-sellers</h2>
-      <p>Les favoris des parents — validés au quotidien.</p>
-    </div>
-
-    <!-- Barre de filtres -->
-    <div class="catfilter">
-      <button class="chip" [class.active]="selectedCat === 'all'" (click)="selectedCat = 'all'">
-        Tous
-      </button>
-      <button
-        class="chip"
-        *ngFor="let c of categories"
-        [class.active]="selectedCat === c.id"
-        (click)="selectedCat = c.id"
-      >
-        {{ c.label }}
-      </button>
-    </div>
-
-    <div class="grid">
-      <div class="card" *ngFor="let p of shown | slice:0:8">
-        <img [src]="p.image" [alt]="p.name" />
-        <div class="card__body">
-          <div class="title">{{ p.name }}</div>
-          <div class="desc">{{ p.description }}</div>
-          <div class="meta">
-            <span class="badge badge--cat">{{ labelOf(p.category) }}</span>
-            <span class="price">{{ p.price | currency:'USD' }}</span>
-          </div>
-          <div class="actions">
-            <button class="btn add" (click)="add(p)">Ajouter au panier</button>
-            <a class="btn ghost" routerLink="/boutique">Voir plus</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cta-center">
-      <a routerLink="/boutique" class="btn btn--primary">Parcourir toute la boutique</a>
-    </div>
+    <form class="nl__form" (submit)="$event.preventDefault()">
+      <input type="email" placeholder="Votre email" required />
+      <button class="btn btn--primary">S’inscrire</button>
+    </form>
   </div>
 </section>
-
-
-
-  
-  <!-- BANNIÈRE INCITATIVE -->
-  <section class="band">
-    <div class="container band__wrap">
-      <div>
-        <h3>Pack Naissance — Prêt pour le 1er mois</h3>
-        <p>Liniment + Crème hydratante + Coton & lingettes + Thermomètre doux. -12% en pack.</p>
-      </div>
-      <a routerLink="/boutique" class="btn btn--dark">Je prends le pack</a>
-    </div>
-  </section>
-  
-  <!-- TÉMOIGNAGES -->
-  <section class="section">
-    <div class="container testimonials">
-      <article class="q">
-        “Des produits tout doux et une équipe rassurante. Livraison rapide 🥰”
-        <footer>— Naomi, maman de Léa</footer>
-      </article>
-      <article class="q">
-        “J’ai adoré le pack naissance, ça m’a simplifié la vie.”
-        <footer>— Chloé, future maman</footer>
-      </article>
-      <article class="q">
-        “Site clair, conseils utiles, je recommande à 100%.”
-        <footer>— Sarah, maman de jumeaux</footer>
-      </article>
-    </div>
-  </section>
-  
-  <!-- NEWSLETTER -->
-  <section class="newsletter">
-    <div class="container newsletter__box">
-      <div>
-        <h3>Des conseils doux dans votre boîte mail</h3>
-        <p>Inscrivez-vous pour recevoir des remises et des guides bienveillants.</p>
-      </div>
-      <form class="nl__form" (submit)="$event.preventDefault()">
-        <input type="email" placeholder="Votre email" required />
-        <button class="btn btn--primary">S’inscrire</button>
-      </form>
-    </div>
-  </section>
-  
